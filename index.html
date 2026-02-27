@@ -6,11 +6,9 @@
 <title>Rohit MK | Cloud Computing Student</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
-/* ========== GLOBAL STYLES ========== */
 *{
 margin:0;
 padding:0;
@@ -40,7 +38,6 @@ margin-bottom:40px;
 font-size:32px;
 }
 
-/* ========== HEADER ========== */
 header{
 position:fixed;
 top:0;
@@ -74,7 +71,6 @@ border:none;
 color:white;
 }
 
-/* ========== HERO ========== */
 .hero{
 height:100vh;
 display:flex;
@@ -107,13 +103,14 @@ text-decoration:none;
 color:white;
 font-weight:600;
 transition:0.3s;
+border:none;
+cursor:pointer;
 }
 
 .btn:hover{
 transform:scale(1.05);
 }
 
-/* ========== SKILLS ========== */
 .skills-container{
 display:flex;
 flex-wrap:wrap;
@@ -128,7 +125,6 @@ border-radius:20px;
 backdrop-filter:blur(5px);
 }
 
-/* ========== PROJECTS ========== */
 .projects{
 display:flex;
 flex-wrap:wrap;
@@ -149,7 +145,6 @@ transition:0.3s;
 transform:translateY(-10px);
 }
 
-/* ========== CONTACT ========== */
 form{
 max-width:500px;
 margin:auto;
@@ -170,7 +165,6 @@ padding:20px;
 background:rgba(255,255,255,0.05);
 }
 
-/* ========== ANIMATION ========== */
 .hidden{
 opacity:0;
 transform:translateY(30px);
@@ -181,7 +175,6 @@ transition:all 0.6s;
 opacity:1;
 transform:translateY(0);
 }
-
 </style>
 </head>
 
@@ -199,25 +192,20 @@ transform:translateY(0);
 </nav>
 </header>
 
-<!-- HERO -->
 <section class="hero" id="home">
 <h1>Hello, I'm <span>Rohit MK</span></h1>
 <h2><span id="typing"></span></h2>
-<p>Cloud Computing student at Kristu Jayanti University passionate about AWS, DevOps and scalable cloud architecture.</p>
+<p>Cloud Computing student passionate about AWS, DevOps and scalable cloud architecture.</p>
 <a href="resume.pdf" class="btn" download>Download Resume</a>
 </section>
 
-<!-- ABOUT -->
 <section id="about" class="hidden">
 <h2>About Me</h2>
 <p style="text-align:center;max-width:700px;margin:auto;">
-I am a dedicated Cloud Computing student at Kristu Jayanti University.
 I specialize in cloud infrastructure, containerization, networking and DevOps practices.
-I aim to build scalable, secure and efficient cloud solutions.
 </p>
 </section>
 
-<!-- SKILLS -->
 <section id="skills" class="hidden">
 <h2>Technical Skills</h2>
 <div class="skills-container">
@@ -231,7 +219,6 @@ I aim to build scalable, secure and efficient cloud solutions.
 </div>
 </section>
 
-<!-- PROJECTS -->
 <section id="projects" class="hidden">
 <h2>Projects</h2>
 <div class="projects">
@@ -250,21 +237,15 @@ I aim to build scalable, secure and efficient cloud solutions.
 </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact" class="hidden">
 <h2>Contact Me</h2>
 <form id="contact-form">
-<input type="text" name="user_name" placeholder="Your Name" required>
-<input type="email" name="user_email" placeholder="Your Email" required>
-<textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+<input type="text" id="name" placeholder="Your Name" required>
+<input type="email" id="email" placeholder="Your Email" required>
+<textarea id="message" rows="5" placeholder="Your Message" required></textarea>
 <button type="submit" class="btn">Send Message</button>
 </form>
 <p id="msg" style="text-align:center;margin-top:15px;"></p>
-
-<div style="text-align:center;margin-top:20px;">
-<a href="#" target="_blank">LinkedIn</a> |
-<a href="#" target="_blank">GitHub</a>
-</div>
 </section>
 
 <footer>
@@ -272,8 +253,6 @@ I aim to build scalable, secure and efficient cloud solutions.
 </footer>
 
 <script>
-
-/* ========== TYPING EFFECT ========== */
 const text = "Cloud Computing Student";
 let i = 0;
 function typing(){
@@ -285,12 +264,10 @@ setTimeout(typing,100);
 }
 typing();
 
-/* ========== DARK/LIGHT MODE ========== */
 function toggleMode(){
 document.body.classList.toggle("light");
 }
 
-/* ========== SCROLL ANIMATION ========== */
 const observer = new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
 if(entry.isIntersecting){
@@ -303,25 +280,30 @@ document.querySelectorAll(".hidden").forEach(el=>{
 observer.observe(el);
 });
 
-/* ========== EMAILJS ========== */
-(function(){
-emailjs.init("YOUR_EMAILJS_PUBLIC_KEY");
-})();
+/* SUPABASE CONFIG */
+const supabaseUrl = "YOUR_SUPABASE_URL";
+const supabaseKey = "YOUR_SUPABASE_ANON_KEY";
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-document.getElementById("contact-form")
-.addEventListener("submit", function(e){
+document.getElementById("contact-form").addEventListener("submit", async function(e){
 e.preventDefault();
 
-emailjs.sendForm("YOUR_SERVICE_ID",
-"YOUR_TEMPLATE_ID",
-this)
-.then(function(){
-document.getElementById("msg").innerHTML="Message Sent Successfully!";
-}, function(error){
-document.getElementById("msg").innerHTML="Failed to Send Message.";
-});
-});
+const name = document.getElementById("name").value;
+const email = document.getElementById("email").value;
+const message = document.getElementById("message").value;
 
+const { error } = await supabase
+.from("contact_messages")
+.insert([{ name, email, message }]);
+
+if(error){
+document.getElementById("msg").innerHTML="Error sending message.";
+console.log(error);
+}else{
+document.getElementById("msg").innerHTML="Message stored successfully!";
+document.getElementById("contact-form").reset();
+}
+});
 </script>
 
 </body>
