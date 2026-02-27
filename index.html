@@ -6,9 +6,10 @@
 <title>Rohit MK | Cloud Computing Student</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
+/* ========== GLOBAL STYLES ========== */
 *{
 margin:0;
 padding:0;
@@ -38,6 +39,7 @@ margin-bottom:40px;
 font-size:32px;
 }
 
+/* ========== HEADER ========== */
 header{
 position:fixed;
 top:0;
@@ -71,6 +73,7 @@ border:none;
 color:white;
 }
 
+/* ========== HERO ========== */
 .hero{
 height:100vh;
 display:flex;
@@ -86,6 +89,11 @@ font-size:45px;
 
 .hero span{
 color:#38bdf8;
+}
+
+.hero p{
+margin-top:20px;
+max-width:600px;
 }
 
 .btn{
@@ -106,6 +114,43 @@ cursor:pointer;
 transform:scale(1.05);
 }
 
+/* ========== SKILLS ========== */
+.skills-container{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:15px;
+}
+
+.skill{
+padding:10px 20px;
+background:rgba(255,255,255,0.1);
+border-radius:20px;
+backdrop-filter:blur(5px);
+}
+
+/* ========== PROJECTS ========== */
+.projects{
+display:flex;
+flex-wrap:wrap;
+gap:20px;
+justify-content:center;
+}
+
+.project{
+width:280px;
+padding:20px;
+border-radius:15px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(8px);
+transition:0.3s;
+}
+
+.project:hover{
+transform:translateY(-10px);
+}
+
+/* ========== CONTACT ========== */
 form{
 max-width:500px;
 margin:auto;
@@ -120,11 +165,31 @@ border:none;
 border-radius:5px;
 }
 
+#msg{
+text-align:center;
+margin-top:15px;
+font-weight:600;
+color:#38bdf8;
+}
+
 footer{
 text-align:center;
 padding:20px;
 background:rgba(255,255,255,0.05);
 }
+
+/* ========== ANIMATION ========== */
+.hidden{
+opacity:0;
+transform:translateY(30px);
+transition:all 0.6s;
+}
+
+.show{
+opacity:1;
+transform:translateY(0);
+}
+
 </style>
 </head>
 
@@ -134,61 +199,129 @@ background:rgba(255,255,255,0.05);
 <div><strong>Rohit MK</strong></div>
 <nav>
 <a href="#home">Home</a>
+<a href="#about">About</a>
+<a href="#skills">Skills</a>
+<a href="#projects">Projects</a>
 <a href="#contact">Contact</a>
 <button class="toggle-btn" onclick="toggleMode()">Toggle</button>
 </nav>
 </header>
 
+<!-- HERO -->
 <section class="hero" id="home">
 <h1>Hello, I'm <span>Rohit MK</span></h1>
+<h2><span id="typing"></span></h2>
 <p>Cloud Computing student passionate about AWS, DevOps and scalable cloud architecture.</p>
+<a href="resume.pdf" class="btn" download>Download Resume</a>
 </section>
 
-<section id="contact">
+<!-- ABOUT -->
+<section id="about" class="hidden">
+<h2>About Me</h2>
+<p style="text-align:center;max-width:700px;margin:auto;">
+I am a dedicated Cloud Computing student specializing in cloud infrastructure,
+containerization, networking and DevOps practices.
+I aim to build scalable, secure and efficient cloud solutions.
+</p>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="hidden">
+<h2>Technical Skills</h2>
+<div class="skills-container">
+<div class="skill">AWS</div>
+<div class="skill">Azure</div>
+<div class="skill">Docker</div>
+<div class="skill">Linux</div>
+<div class="skill">Kubernetes</div>
+<div class="skill">Networking</div>
+<div class="skill">DevOps</div>
+</div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="hidden">
+<h2>Projects</h2>
+<div class="projects">
+<div class="project">
+<h3>Cloud Deployment</h3>
+<p>Deployed scalable application using AWS EC2 & S3.</p>
+</div>
+<div class="project">
+<h3>Dockerized App</h3>
+<p>Containerized full stack app using Docker.</p>
+</div>
+<div class="project">
+<h3>CI/CD Pipeline</h3>
+<p>Implemented CI/CD using GitHub Actions.</p>
+</div>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="hidden">
 <h2>Contact Me</h2>
 <form id="contact-form">
-<input type="text" id="name" placeholder="Your Name" required>
-<input type="email" id="email" placeholder="Your Email" required>
-<textarea id="message" rows="5" placeholder="Your Message" required></textarea>
+<input type="text" placeholder="Your Name" required>
+<input type="email" placeholder="Your Email" required>
+<textarea rows="5" placeholder="Your Message" required></textarea>
 <button type="submit" class="btn">Send Message</button>
 </form>
-<p id="msg" style="text-align:center;margin-top:15px;"></p>
+<p id="msg"></p>
+
+<div style="text-align:center;margin-top:20px;">
+<a href="#" target="_blank">LinkedIn</a> |
+<a href="#" target="_blank">GitHub</a>
+</div>
 </section>
 
 <footer>
-© 2026 Rohit MK
+© 2026 Rohit MK | Cloud Computing Student
 </footer>
 
 <script>
 
+/* ========== TYPING EFFECT ========== */
+const text = "Cloud Computing Student";
+let i = 0;
+function typing(){
+if(i < text.length){
+document.getElementById("typing").innerHTML += text.charAt(i);
+i++;
+setTimeout(typing,100);
+}
+}
+typing();
+
+/* ========== DARK/LIGHT MODE ========== */
 function toggleMode(){
 document.body.classList.toggle("light");
 }
 
-/* SUPABASE CONFIG */
-const supabaseUrl = "YOUR_SUPABASE_URL";
-const supabaseKey = "YOUR_SUPABASE_ANON_KEY";
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
-
-/* FORM SUBMIT */
-document.getElementById("contact-form").addEventListener("submit", async function(e){
-e.preventDefault();
-
-const name = document.getElementById("name").value;
-const email = document.getElementById("email").value;
-const message = document.getElementById("message").value;
-
-const { data, error } = await supabase
-.from("contact_messages")
-.insert([{ name, email, message }]);
-
-if(error){
-document.getElementById("msg").innerHTML = "❌ Failed to send message.";
-console.error("Supabase Error:", error.message);
-} else {
-document.getElementById("msg").innerHTML = "✅ Message sent successfully!";
-document.getElementById("contact-form").reset();
+/* ========== SCROLL ANIMATION ========== */
+const observer = new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("show");
 }
+});
+});
+
+document.querySelectorAll(".hidden").forEach(el=>{
+observer.observe(el);
+});
+
+/* ========== CONTACT FORM SUCCESS MESSAGE ========== */
+document.getElementById("contact-form")
+.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    document.getElementById("msg").innerHTML = "✅ Message Sent Successfully!";
+    this.reset();
+
+    setTimeout(() => {
+        document.getElementById("msg").innerHTML = "";
+    }, 3000);
 });
 
 </script>
