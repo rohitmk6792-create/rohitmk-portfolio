@@ -259,16 +259,16 @@ I aim to build scalable, secure and efficient cloud solutions.
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="hidden">
-<h2>Contact Me</h2>
-<form id="contact-form">
-<input type="text" placeholder="Your Name" required>
-<input type="email" placeholder="Your Email" required>
-<textarea rows="5" placeholder="Your Message" required></textarea>
-<button type="submit" class="btn">Send Message</button>
-</form>
-<p id="msg"></p>
-
+<section id="feedback" class="fade">
+  <h2>Feedback</h2>
+  <form class="feedback-form" id="feedbackForm">
+    <input type="text" id="name" placeholder="Your Name" required>
+    <input type="email" id="email" placeholder="Your Email" required>
+    <textarea rows="5" id="message" placeholder="Your Feedback" required></textarea>
+    <button type="submit">Submit Feedback</button>
+  </form>
+  <div id="status"></div>
+</section>
 <div style="text-align:center;margin-top:20px;">
 <a href="#" target="_blank">LinkedIn</a> |
 <a href="#" target="_blank">GitHub</a>
@@ -323,8 +323,66 @@ document.getElementById("contact-form")
         document.getElementById("msg").innerHTML = "";
     }, 3000);
 });
+const supabaseUrl = "https://cymbgtvahvkaktrcjbrx.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpwenpsamhreHRob21lY3JqeXdtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIxNjk4MDEsImV4cCI6MjA4Nzc0NTgwMX0.9pEEC1wP4xo5H4xmGJfIIsZyF1AL2HP390pSetcPdVI";
 
+const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+
+// Feedback Form Handler
+document.getElementById("feedbackForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const status = document.getElementById("status");
+  const submitButton = e.target.querySelector('button[type="submit"]');
+  
+  // Show loading state
+  status.innerText = "Submitting...";
+  status.style.color = "#fff";
+  submitButton.disabled = true;
+  submitButton.innerText = "Submitting...";
+
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const message = document.getElementById("message").value.trim();
+
+  console.log("Attempting to submit feedback:", { name, email, message });
+
+  try {
+    const { data, error } = await supabaseClient
+      .from("feedback")
+      .insert([{ 
+        name: name, 
+        email: email, 
+        message: message 
+      }])
+      .select();
+
+    if (error) {
+      console.error("Supabase error:", error);
+      status.innerText = `❌ Error: ${error.message}`;
+      status.style.color = "#ff4444";
+    } else {
+      console.log("Feedback submitted successfully:", data);
+      status.innerText = "✅ Feedback submitted successfully!";
+      status.style.color = "#00ffd5";
+      e.target.reset();
+      
+      // Clear success message after 5 seconds
+      setTimeout(() => {
+        status.innerText = "";
+      }, 5000);
+    }
+  } catch (err) {
+    console.error("Unexpected error:", err);
+    status.innerText = "❌ An unexpected error occurred. Please try again.";
+    status.style.color = "#ff4444";
+  } finally {
+    submitButton.disabled = false;
+    submitButton.innerText = "Submit Feedback";
+  }
+});
 </script>
 
 </body>
 </html>
+
