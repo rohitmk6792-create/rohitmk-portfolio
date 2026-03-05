@@ -9,7 +9,6 @@
 
 <style>
 
-/* ========== GLOBAL STYLES ========== */
 *{
 margin:0;
 padding:0;
@@ -39,7 +38,8 @@ margin-bottom:40px;
 font-size:32px;
 }
 
-/* ========== HEADER ========== */
+/* HEADER */
+
 header{
 position:fixed;
 top:0;
@@ -50,7 +50,6 @@ align-items:center;
 padding:20px 10%;
 background:rgba(255,255,255,0.05);
 backdrop-filter:blur(10px);
-z-index:1000;
 }
 
 nav a{
@@ -58,10 +57,6 @@ margin-left:20px;
 text-decoration:none;
 color:white;
 font-weight:500;
-}
-
-body.light nav a{
-color:#0f172a;
 }
 
 .toggle-btn{
@@ -73,7 +68,8 @@ border:none;
 color:white;
 }
 
-/* ========== HERO ========== */
+/* HERO */
+
 .hero{
 height:100vh;
 display:flex;
@@ -83,17 +79,8 @@ align-items:center;
 text-align:center;
 }
 
-.hero h1{
-font-size:45px;
-}
-
 .hero span{
 color:#38bdf8;
-}
-
-.hero p{
-margin-top:20px;
-max-width:600px;
 }
 
 .btn{
@@ -104,17 +91,10 @@ background:#38bdf8;
 border-radius:30px;
 text-decoration:none;
 color:white;
-font-weight:600;
-transition:0.3s;
-border:none;
-cursor:pointer;
 }
 
-.btn:hover{
-transform:scale(1.05);
-}
+/* SKILLS */
 
-/* ========== SKILLS ========== */
 .skills-container{
 display:flex;
 flex-wrap:wrap;
@@ -126,10 +106,10 @@ gap:15px;
 padding:10px 20px;
 background:rgba(255,255,255,0.1);
 border-radius:20px;
-backdrop-filter:blur(5px);
 }
 
-/* ========== PROJECTS ========== */
+/* PROJECTS */
+
 .projects{
 display:flex;
 flex-wrap:wrap;
@@ -142,15 +122,10 @@ width:280px;
 padding:20px;
 border-radius:15px;
 background:rgba(255,255,255,0.05);
-backdrop-filter:blur(8px);
-transition:0.3s;
 }
 
-.project:hover{
-transform:translateY(-10px);
-}
+/* CONTACT */
 
-/* ========== CONTACT ========== */
 form{
 max-width:500px;
 margin:auto;
@@ -165,9 +140,9 @@ border:none;
 border-radius:5px;
 }
 
-#msg{
+#status{
 text-align:center;
-margin-top:15px;
+margin-top:10px;
 font-weight:600;
 color:#38bdf8;
 }
@@ -178,18 +153,6 @@ padding:20px;
 background:rgba(255,255,255,0.05);
 }
 
-/* ========== ANIMATION ========== */
-.hidden{
-opacity:0;
-transform:translateY(30px);
-transition:all 0.6s;
-}
-
-.show{
-opacity:1;
-transform:translateY(0);
-}
-
 </style>
 </head>
 
@@ -197,38 +160,53 @@ transform:translateY(0);
 
 <header>
 <div><strong>Rohit MK</strong></div>
+
 <nav>
 <a href="#home">Home</a>
 <a href="#about">About</a>
 <a href="#skills">Skills</a>
 <a href="#projects">Projects</a>
-<a href="#contact">Contact</a>
+<a href="#feedback">Contact</a>
 <button class="toggle-btn" onclick="toggleMode()">Toggle</button>
 </nav>
+
 </header>
 
 <!-- HERO -->
+
 <section class="hero" id="home">
+
 <h1>Hello, I'm <span>Rohit MK</span></h1>
+
 <h2><span id="typing"></span></h2>
+
 <p>Cloud Computing student passionate about AWS, DevOps and scalable cloud architecture.</p>
-<a href="resume.pdf" class="btn" download>Download Resume</a>
+
 </section>
 
+
 <!-- ABOUT -->
-<section id="about" class="hidden">
+
+<section id="about">
+
 <h2>About Me</h2>
+
 <p style="text-align:center;max-width:700px;margin:auto;">
 I am a dedicated Cloud Computing student specializing in cloud infrastructure,
 containerization, networking and DevOps practices.
-I aim to build scalable, secure and efficient cloud solutions.
 </p>
+
 </section>
 
+
 <!-- SKILLS -->
-<section id="skills" class="hidden">
+
+<section id="skills">
+
 <h2>Technical Skills</h2>
+
 <div class="skills-container">
+
 <div class="skill">AWS</div>
 <div class="skill">Azure</div>
 <div class="skill">Docker</div>
@@ -236,153 +214,143 @@ I aim to build scalable, secure and efficient cloud solutions.
 <div class="skill">Kubernetes</div>
 <div class="skill">Networking</div>
 <div class="skill">DevOps</div>
+
 </div>
+
 </section>
 
+
 <!-- PROJECTS -->
-<section id="projects" class="hidden">
+
+<section id="projects">
+
 <h2>Projects</h2>
+
 <div class="projects">
+
 <div class="project">
 <h3>Cloud Deployment</h3>
 <p>Deployed scalable application using AWS EC2 & S3.</p>
 </div>
+
 <div class="project">
 <h3>Dockerized App</h3>
-<p>Containerized full stack app using Docker.</p>
+<p>Containerized application using Docker.</p>
 </div>
+
 <div class="project">
 <h3>CI/CD Pipeline</h3>
 <p>Implemented CI/CD using GitHub Actions.</p>
 </div>
+
 </div>
+
 </section>
 
-<!-- CONTACT -->
-<section id="feedback" class="fade">
-  <h2>Feedback</h2>
-  <form class="feedback-form" id="feedbackForm">
-    <input type="text" id="name" placeholder="Your Name" required>
-    <input type="email" id="email" placeholder="Your Email" required>
-    <textarea rows="5" id="message" placeholder="Your Feedback" required></textarea>
-    <button type="submit">Submit Feedback</button>
-  </form>
-  <div id="status"></div>
+
+<!-- FEEDBACK -->
+
+<section id="feedback">
+
+<h2>Feedback</h2>
+
+<form id="feedbackForm">
+
+<input type="text" id="name" placeholder="Your Name" required>
+
+<input type="email" id="email" placeholder="Your Email" required>
+
+<textarea rows="5" id="message" placeholder="Your Feedback" required></textarea>
+
+<button type="submit" class="btn">Submit Feedback</button>
+
+</form>
+
+<div id="status"></div>
+
 </section>
-<div style="text-align:center;margin-top:20px;">
-<a href="#" target="_blank">LinkedIn</a> |
-<a href="#" target="_blank">GitHub</a>
-</div>
-</section>
+
 
 <footer>
+
 © 2026 Rohit MK | Cloud Computing Student
+
 </footer>
+
 
 <script>
 
-/* ========== TYPING EFFECT ========== */
-const text = "Cloud Computing Student";
-let i = 0;
-function typing(){
-if(i < text.length){
-document.getElementById("typing").innerHTML += text.charAt(i);
-i++;
-setTimeout(typing,100);
-}
-}
-typing();
-
-/* ========== DARK/LIGHT MODE ========== */
 function toggleMode(){
 document.body.classList.toggle("light");
 }
 
-/* ========== SCROLL ANIMATION ========== */
-const observer = new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-entry.target.classList.add("show");
+const text="Cloud Computing Student";
+let i=0;
+
+function typing(){
+if(i<text.length){
+document.getElementById("typing").innerHTML+=text.charAt(i);
+i++;
+setTimeout(typing,100);
 }
+}
+
+typing();
+
+</script>
+
+
+<!-- FIREBASE -->
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-database.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyCMmf8K2OaVxpO8cQeu0IVST3SUTljDBJE",
+authDomain: "backend-2d262.firebaseapp.com",
+databaseURL: "https://backend-2d262-default-rtdb.firebaseio.com",
+projectId: "backend-2d262",
+storageBucket: "backend-2d262.firebasestorage.app",
+messagingSenderId: "266414630907",
+appId: "1:266414630907:web:e7a4ba803ef5485ec1cd5e"
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const database = getDatabase(app);
+
+const form = document.getElementById("feedbackForm");
+const status = document.getElementById("status");
+
+form.addEventListener("submit",function(e){
+
+e.preventDefault();
+
+const name=document.getElementById("name").value;
+const email=document.getElementById("email").value;
+const message=document.getElementById("message").value;
+
+push(ref(database,"feedback"),{
+
+name:name,
+email:email,
+message:message
+
 });
+
+status.innerHTML="✅ Feedback submitted successfully!";
+
+form.reset();
+
 });
 
-document.querySelectorAll(".hidden").forEach(el=>{
-observer.observe(el);
-});
-
-/* ========== CONTACT FORM SUCCESS MESSAGE ========== */
-document.getElementById("contact-form")
-.addEventListener("submit", function(e){
-    e.preventDefault();
-
-    document.getElementById("msg").innerHTML = "✅ Message Sent Successfully!";
-    this.reset();
-
-    setTimeout(() => {
-        document.getElementById("msg").innerHTML = "";
-    }, 3000);
-});
-const supabaseUrl = "https://cymbgtvahvkaktrcjbrx.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpwenpsamhreHRob21lY3JqeXdtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIxNjk4MDEsImV4cCI6MjA4Nzc0NTgwMX0.9pEEC1wP4xo5H4xmGJfIIsZyF1AL2HP390pSetcPdVI";
-
-const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
-
-// Feedback Form Handler
-document.getElementById("feedbackForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const status = document.getElementById("status");
-  const submitButton = e.target.querySelector('button[type="submit"]');
-  
-  // Show loading state
-  status.innerText = "Submitting...";
-  status.style.color = "#fff";
-  submitButton.disabled = true;
-  submitButton.innerText = "Submitting...";
-
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const message = document.getElementById("message").value.trim();
-
-  console.log("Attempting to submit feedback:", { name, email, message });
-
-  try {
-    const { data, error } = await supabaseClient
-      .from("feedback")
-      .insert([{ 
-        name: name, 
-        email: email, 
-        message: message 
-      }])
-      .select();
-
-    if (error) {
-      console.error("Supabase error:", error);
-      status.innerText = `❌ Error: ${error.message}`;
-      status.style.color = "#ff4444";
-    } else {
-      console.log("Feedback submitted successfully:", data);
-      status.innerText = "✅ Feedback submitted successfully!";
-      status.style.color = "#00ffd5";
-      e.target.reset();
-      
-      // Clear success message after 5 seconds
-      setTimeout(() => {
-        status.innerText = "";
-      }, 5000);
-    }
-  } catch (err) {
-    console.error("Unexpected error:", err);
-    status.innerText = "❌ An unexpected error occurred. Please try again.";
-    status.style.color = "#ff4444";
-  } finally {
-    submitButton.disabled = false;
-    submitButton.innerText = "Submit Feedback";
-  }
-});
 </script>
 
 </body>
 </html>
+
 
